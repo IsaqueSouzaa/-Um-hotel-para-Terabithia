@@ -9,49 +9,54 @@
 
 <body>
     <script>
-       
-      var hotel="Hotel Transilvânia"
-       function recep(){
-       alert("Seja bem-vindo ao " + hotel );
-       }
-        
+
+        var hotel = "Hotel Transilvânia"
+
+        function recep() {
+            alert("Seja bem-vindo ao " + hotel);
+        }
+        recep();
+
         var nome = prompt("Insira o seu nome, por favor");
-        
+
         function validacao() {
             var senha = parseInt(prompt("Insira a sua senha, por favor"));
-    
+
             if (senha !== 2678) {
                 alert("Senha incorreta. Por favor, tente novamente!");
                 validacao()
             }
-            inicio();
+            else {
+                inicio();
+            }
         }
-        
-        
-        alert("Bem-vindo ao "+ hotel+", " + nome + ". É um prazer tê-lo por aqui!")
-    
-       
+
+        validacao();
+
+        alert("Bem-vindo ao " + hotel + ", " + nome + ". É um prazer tê-lo por aqui!")
+
+
         function inicio() {
-            var escolha = parseInt(prompt("Escolha 1.Reservar Quarto 2, 3, 4, 5 ou 6 para sair"));
-    
+            var escolha = parseInt(prompt("Escolha 1.Reservar Quarto 2.cadastro hóspedes, 3, 4, 5 ou 6 para sair"));
+
             switch (escolha) {
                 case 1:
                     reserva();
                     break;
-                case 6:
-                    sair();
+                case 2:
+                    cadastro();
                     break;
                 default:
                     erro();
                     break;
             }
         }
-    
+
         function erro() {
             alert('Por favor, informe um número entre 1 e 6');
             inicio();
         }
-    
+
         function sair() {
             var confirma = confirm('Você deseja sair?');
             if (confirma) {
@@ -61,66 +66,117 @@
                 inicio();
             }
         }
-    
-        function reserva(){
-            var valor= parseInt(prompt( "Qual o valor padrão da diária?"));
-            
-            if ( valor < 1 ) {
-            alert ("Valor inválido, " + nome);
-                reserva();
-            }
-            
-            var dia= parseInt(prompt( "Quantas diárias serão necessárias?"));
 
-            if ( dia < 1 ){
-            alert ("Valor inválido, " + nome);
+        function reserva() {
+            var valor = parseInt(prompt("Qual o valor padrão da diária?"));
+
+            if (valor < 1) {
+                alert("Valor inválido, " + nome);
                 reserva();
             }
 
-            else if (dia > 30){
-            alert ("Infelizmente temos diárias apenas de 30 dias seguidos")
+            var dia = parseInt(prompt("Quantas diárias serão necessárias?"));
+
+            if (dia < 1) {
+                alert("Valor inválido, " + nome);
                 reserva();
             }
-            
-            var calculo= valor * dia 
-        
-            alert("O valor de " + dia + " dias de hospedagem é de " + calculo + " reais")
-        
-            
-            var hospede = prompt("Qual o nome do hóspede?")
 
-            var quarto = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"))
+            else if (dia > 30) {
+                alert("Infelizmente temos diárias apenas de 30 dias seguidos")
+                reserva();
+            }
 
-                if ( quarto < 1){
-                    alert(" Quarto indisponivel")
-                }
+            var calculo = valor * dia
 
-                else if ( quarto > 20)
-                alert("Quarto indisponivel")
+            alert("O valor de " + dia + " dias de hospedagem é de " + calculo + " reais");
 
-                else {
-                alert("Quarto Livre")
-                }
-           
-                var confirm= prompt(nome +", você confirma a hospedagem para "+ hospede+ " por "+dia+ " dias para o quarto "+quarto+" por "+ calculo+ " reais? S/N")
 
-                if ( confirm != "s" ){
-                    alert (nome +", reserva cancelada")
-                }
-        
-                else {
-                    alert( nome + ", reserva efetuada para "+ hospede+".")
-                }
-        
+            var hospede = prompt("Qual o nome do hóspede?");
+
+            var quarto = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"));
+
+            if (quarto < 1) {
+                alert(" Quarto indisponivel");
+            }
+
+            else if (quarto > 20)
+                alert("Quarto indisponivel");
+
+            else {
+                alert("Quarto Livre");
+            }
+
+            var confirm = prompt(nome + ", você confirma a hospedagem para " + hospede + " por " + dia + " dias para o quarto " + quarto + " por " + calculo + " reais? S/N")
+
+            if (confirm == "n") {
+                alert(nome + ", reserva cancelada");
+            }
+
+            else {
+                alert(nome + ", reserva efetuada para " + hospede + ".");
+            }
+
         }
+
+        function cadastro() {
+            var diaria = parseInt(prompt("Qual o valor padrão da diária ?"));
+
+            if (diaria < 1) {
+                alert("Valor inválido, " + nome);
+                cadastro();
+            }
+
+            var dias = parseInt(prompt("Quantas diárias serão necessárias?"))
+
+            var apagar= diaria * dias
+           
+             var hospede = []
+            
+
+            var idade = []
+            var total = 0;
+
+            while( pergunta != "pare"){
+            var meia, gratuita;
+            hospede.push(prompt("Qual o nome do hóspede?"));
+            
+            idade.push(parseInt(prompt("Qual a idade do hóspede?")));
+           
+            var pergunta = prompt("Deseja inserir mais um hospede? Se não digite pare")
+
+            if (idade < 6 ){
+            alert( hospede+", possui gratuidade.");
+            gratuita++;
+            }
+           
+            else if ( idade > 60){
+                meia++;
+            alert( hospede+", paga meia.");
+
+        }
+
+        total = apagar * (hospede.length - (gratuita+meia));
+        total += (apagar * meia) / 2
     
-    recep();
-   
-    validacao();
-    
-    reserva();
-  
-    
+        // for( let i =0; i <= hospede.length - (gratuita+meia); i++){
+        //     total= apagar + apagar
+        // }
+        // for
+
+        
+    }
+
+    alert (nome +", você confirma a hospedagem para "+ hospede+ " por " +dias+ " dias por "+ total +"? S/N")
+        }
+
+        
+
+
+        reserva();
+
+        cadastro();
+
     </script>
 </body>
 
